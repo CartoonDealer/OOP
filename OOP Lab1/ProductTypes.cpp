@@ -5,13 +5,13 @@
 #include <ctime>
 
 std::string Food::calculate_expiration_date() const {
-    if (production_date.empty() || shelf_life_days <= 0) return "Не указан";
+    if (production_date.empty() || shelf_life_days <= 0) return "РќРµ СѓРєР°Р·Р°РЅ";
 
     std::tm tm = {};
     std::istringstream ss(production_date);
     ss >> std::get_time(&tm, "%d.%m.%Y");
 
-    if (ss.fail()) return "Ошибка формата даты";
+    if (ss.fail()) return "РћС€РёР±РєР° С„РѕСЂРјР°С‚Р° РґР°С‚С‹";
 
     tm.tm_mday += shelf_life_days;
     std::mktime(&tm);
@@ -29,8 +29,8 @@ Smartphone::Smartphone(const std::string& id, const std::string& name, const Pri
 std::unique_ptr<Product> Smartphone::clone() const { return std::make_unique<Smartphone>(*this); }
 void Smartphone::transfer_to(Warehouse& other) const { other.add_product(this->clone()); }
 void Smartphone::print(std::ostream& os) const {
-    os << "[Смартфон] ID: " << id << " | " << name
-        << " | Цена: " << price.get_value() << " руб. | Кол-во: " << quantity.get_value() << " шт. | Вес: " << weight.get_value() << " г";
+    os << "[РЎРјР°СЂС‚С„РѕРЅ] ID: " << id << " | " << name
+        << " | Р¦РµРЅР°: " << price.get_value() << " СЂСѓР±. | РљРѕР»-РІРѕ: " << quantity.get_value() << " С€С‚. | Р’РµСЃ: " << weight.get_value() << " Рі";
 }
 
 Laptop::Laptop(const std::string& id, const std::string& name, const Price& price,
@@ -41,8 +41,8 @@ Laptop::Laptop(const std::string& id, const std::string& name, const Price& pric
 std::unique_ptr<Product> Laptop::clone() const { return std::make_unique<Laptop>(*this); }
 void Laptop::transfer_to(Warehouse& other) const { other.add_product(this->clone()); }
 void Laptop::print(std::ostream& os) const {
-    os << "[Ноутбук] ID: " << id << " | " << name
-        << " | Цена: " << price.get_value() << " руб. | Кол-во: " << quantity.get_value() << " шт. | Вес: " << weight.get_value() << " г";
+    os << "[РќРѕСѓС‚Р±СѓРє] ID: " << id << " | " << name
+        << " | Р¦РµРЅР°: " << price.get_value() << " СЂСѓР±. | РљРѕР»-РІРѕ: " << quantity.get_value() << " С€С‚. | Р’РµСЃ: " << weight.get_value() << " Рі";
 }
 
 TShirt::TShirt(const std::string& id, const std::string& name, const Price& price,
@@ -53,8 +53,8 @@ TShirt::TShirt(const std::string& id, const std::string& name, const Price& pric
 std::unique_ptr<Product> TShirt::clone() const { return std::make_unique<TShirt>(*this); }
 void TShirt::transfer_to(Warehouse& other) const { other.add_product(this->clone()); }
 void TShirt::print(std::ostream& os) const {
-    os << "[Футболка] ID: " << id << " | " << name
-        << " | Цена: " << price.get_value() << " руб. | Кол-во: " << quantity.get_value() << " шт. | Вес: " << weight.get_value() << " г";
+    os << "[Р¤СѓС‚Р±РѕР»РєР°] ID: " << id << " | " << name
+        << " | Р¦РµРЅР°: " << price.get_value() << " СЂСѓР±. | РљРѕР»-РІРѕ: " << quantity.get_value() << " С€С‚. | Р’РµСЃ: " << weight.get_value() << " Рі";
 }
 
 Jacket::Jacket(const std::string& id, const std::string& name, const Price& price,
@@ -65,8 +65,8 @@ Jacket::Jacket(const std::string& id, const std::string& name, const Price& pric
 std::unique_ptr<Product> Jacket::clone() const { return std::make_unique<Jacket>(*this); }
 void Jacket::transfer_to(Warehouse& other) const { other.add_product(this->clone()); }
 void Jacket::print(std::ostream& os) const {
-    os << "[Куртка] ID: " << id << " | " << name
-        << " | Цена: " << price.get_value() << " руб. | Кол-во: " << quantity.get_value() << " шт. | Вес: " << weight.get_value() << " г";
+    os << "[РљСѓСЂС‚РєР°] ID: " << id << " | " << name
+        << " | Р¦РµРЅР°: " << price.get_value() << " СЂСѓР±. | РљРѕР»-РІРѕ: " << quantity.get_value() << " С€С‚. | Р’РµСЃ: " << weight.get_value() << " Рі";
 }
 
 Milk::Milk(const std::string& id, const std::string& name, const Price& price,
@@ -78,9 +78,9 @@ Milk::Milk(const std::string& id, const std::string& name, const Price& price,
 std::unique_ptr<Product> Milk::clone() const { return std::make_unique<Milk>(*this); }
 void Milk::transfer_to(Warehouse& other) const { other.add_product(this->clone()); }
 void Milk::print(std::ostream& os) const {
-    os << "[Молоко] ID: " << id << " | " << name
-        << " | Цена: " << price.get_value() << " руб. | Кол-во: " << quantity.get_value() << " шт. | Вес: " << weight.get_value() << " г"
-        << " | Произведено: " << production_date << " | Годен до: " << calculate_expiration_date() << " (" << shelf_life_days << " дн.)";
+    os << "[РњРѕР»РѕРєРѕ] ID: " << id << " | " << name
+        << " | Р¦РµРЅР°: " << price.get_value() << " СЂСѓР±. | РљРѕР»-РІРѕ: " << quantity.get_value() << " С€С‚. | Р’РµСЃ: " << weight.get_value() << " Рі"
+        << " | РџСЂРѕРёР·РІРµРґРµРЅРѕ: " << production_date << " | Р“РѕРґРµРЅ РґРѕ: " << calculate_expiration_date() << " (" << shelf_life_days << " РґРЅ.)";
 }
 
 Bread::Bread(const std::string& id, const std::string& name, const Price& price,
@@ -92,7 +92,7 @@ Bread::Bread(const std::string& id, const std::string& name, const Price& price,
 std::unique_ptr<Product> Bread::clone() const { return std::make_unique<Bread>(*this); }
 void Bread::transfer_to(Warehouse& other) const { other.add_product(this->clone()); }
 void Bread::print(std::ostream& os) const {
-    os << "[Хлеб] ID: " << id << " | " << name
-        << " | Цена: " << price.get_value() << " руб. | Кол-во: " << quantity.get_value() << " шт. | Вес: " << weight.get_value() << " г"
-        << " | Произведено: " << production_date << " | Годен до: " << calculate_expiration_date() << " (" << shelf_life_days << " дн.)";
+    os << "[РҐР»РµР±] ID: " << id << " | " << name
+        << " | Р¦РµРЅР°: " << price.get_value() << " СЂСѓР±. | РљРѕР»-РІРѕ: " << quantity.get_value() << " С€С‚. | Р’РµСЃ: " << weight.get_value() << " Рі"
+        << " | РџСЂРѕРёР·РІРµРґРµРЅРѕ: " << production_date << " | Р“РѕРґРµРЅ РґРѕ: " << calculate_expiration_date() << " (" << shelf_life_days << " РґРЅ.)";
 }

@@ -4,7 +4,7 @@
 
 Warehouse::Warehouse(size_t maxSize) : max_size(maxSize) {
     if (maxSize == 0) {
-        throw std::invalid_argument("Вместимость склада должна быть больше 0");
+        throw std::invalid_argument("Р’РјРµСЃС‚РёРјРѕСЃС‚СЊ СЃРєР»Р°РґР° РґРѕР»Р¶РЅР° Р±С‹С‚СЊ Р±РѕР»СЊС€Рµ 0");
     }
     products.reserve(max_size);
 }
@@ -44,13 +44,13 @@ Warehouse& Warehouse::operator=(Warehouse&& other) noexcept {
 
 void Warehouse::add_product(std::unique_ptr<Product> product) {
     if (!product) {
-        throw std::invalid_argument("Нельзя добавить пустой товар (nullptr)");
+        throw std::invalid_argument("РќРµР»СЊР·СЏ РґРѕР±Р°РІРёС‚СЊ РїСѓСЃС‚РѕР№ С‚РѕРІР°СЂ (nullptr)");
     }
     if (products.size() >= max_size) {
-        throw std::overflow_error("Превышена максимальная вместимость склада");
+        throw std::overflow_error("РџСЂРµРІС‹С€РµРЅР° РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ РІРјРµСЃС‚РёРјРѕСЃС‚СЊ СЃРєР»Р°РґР°");
     }
     if (find_by_id(product->get_id()) != nullptr) {
-        throw std::invalid_argument("Товар с таким ID уже существует на складе");
+        throw std::invalid_argument("РўРѕРІР°СЂ СЃ С‚Р°РєРёРј ID СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РЅР° СЃРєР»Р°РґРµ");
     }
     products.push_back(std::move(product));
 }
@@ -60,14 +60,14 @@ void Warehouse::remove_by_id(const std::string& id) {
         [&id](const std::unique_ptr<Product>& p) { return p->get_id() == id; });
 
     if (it == products.end()) {
-        throw std::runtime_error("Товар с таким ID не найден");
+        throw std::runtime_error("РўРѕРІР°СЂ СЃ С‚Р°РєРёРј ID РЅРµ РЅР°Р№РґРµРЅ");
     }
     products.erase(it, products.end());
 }
 
 void Warehouse::remove_by_index(size_t index) {
     if (index >= products.size()) {
-        throw std::out_of_range("Индекс вне диапазона (товара с таким индексом нет)");
+        throw std::out_of_range("РРЅРґРµРєСЃ РІРЅРµ РґРёР°РїР°Р·РѕРЅР° (С‚РѕРІР°СЂР° СЃ С‚Р°РєРёРј РёРЅРґРµРєСЃРѕРј РЅРµС‚)");
     }
     products.erase(products.begin() + index);
 }

@@ -5,7 +5,7 @@ Quantity::Quantity() : value(0) {}
 
 Quantity::Quantity(int val) : value(val) {
     if (val < 0) {
-        throw std::invalid_argument("Êîëè÷åñòâî íå ìîæåò áûòü îòðèöàòåëüíûì");
+        throw std::invalid_argument("ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¾Ñ‚Ñ€Ð¸Ñ†Ð°Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¼");
     }
 }
 
@@ -15,7 +15,7 @@ int Quantity::get_value() const {
 
 void Quantity::set_value(int new_val) {
     if (new_val < 0) {
-        throw std::invalid_argument("Êîëè÷åñòâî íå ìîæåò áûòü îòðèöàòåëüíûì");
+        throw std::invalid_argument("ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¾Ñ‚Ñ€Ð¸Ñ†Ð°Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¼");
     }
     value = new_val;
 }
@@ -23,7 +23,7 @@ void Quantity::set_value(int new_val) {
 void Quantity::change(int delta) {
     int new_val = value + delta;
     if (new_val < 0) {
-        throw std::invalid_argument("Êîëè÷åñòâî íå ìîæåò ñòàòü îòðèöàòåëüíûì");
+        throw std::invalid_argument("ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚ ÑÑ‚Ð°Ñ‚ÑŒ Ð¾Ñ‚Ñ€Ð¸Ñ†Ð°Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¼");
     }
     value = new_val;
 }

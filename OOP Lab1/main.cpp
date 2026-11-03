@@ -26,7 +26,7 @@ int input_int(const std::string& prompt) {
             return value;
         }
         else {
-            std::cout << "Ошибка ввода. Введите целое число.\n";
+            std::cout << "РћС€РёР±РєР° РІРІРѕРґР°. Р’РІРµРґРёС‚Рµ С†РµР»РѕРµ С‡РёСЃР»Рѕ.\n";
             clear_input();
         }
     }
@@ -41,7 +41,7 @@ double input_double(const std::string& prompt) {
             return value;
         }
         else {
-            std::cout << "Ошибка ввода. Введите число.\n";
+            std::cout << "РћС€РёР±РєР° РІРІРѕРґР°. Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ.\n";
             clear_input();
         }
     }
@@ -55,9 +55,9 @@ std::string input_string(const std::string& prompt) {
 }
 
 void print_warehouse(const std::string& title, Warehouse& wh) {
-    std::cout << "\n--- " << title << " (Товаров: " << wh.size() << " / " << wh.capacity() << ") ---\n";
+    std::cout << "\n--- " << title << " (РўРѕРІР°СЂРѕРІ: " << wh.size() << " / " << wh.capacity() << ") ---\n";
     if (wh.size() == 0) {
-        std::cout << "Склад пуст.\n";
+        std::cout << "РЎРєР»Р°Рґ РїСѓСЃС‚.\n";
         return;
     }
 
@@ -71,11 +71,11 @@ void print_warehouse(const std::string& title, Warehouse& wh) {
 }
 
 Warehouse* select_warehouse(Warehouse* main_wh, Warehouse* second_wh) {
-    std::cout << "Выберите склад:\n1. Основной склад\n2. Второй склад\n";
-    int choice = input_int("Ваш выбор: ");
+    std::cout << "Р’С‹Р±РµСЂРёС‚Рµ СЃРєР»Р°Рґ:\n1. РћСЃРЅРѕРІРЅРѕР№ СЃРєР»Р°Рґ\n2. Р’С‚РѕСЂРѕР№ СЃРєР»Р°Рґ\n";
+    int choice = input_int("Р’Р°С€ РІС‹Р±РѕСЂ: ");
     if (choice == 1) return main_wh;
     if (choice == 2) return second_wh;
-    std::cout << "Неверный выбор. Действие отменено.\n";
+    std::cout << "РќРµРІРµСЂРЅС‹Р№ РІС‹Р±РѕСЂ. Р”РµР№СЃС‚РІРёРµ РѕС‚РјРµРЅРµРЅРѕ.\n";
     return nullptr;
 }
 
@@ -96,42 +96,42 @@ int main() {
     int choice;
     do {
         std::cout << "\n============================================\n";
-        std::cout << "       СИСТЕМА УПРАВЛЕНИЯ СКЛАДОМ\n";
+        std::cout << "       РЎРРЎРўР•РњРђ РЈРџР РђР’Р›Р•РќРРЇ РЎРљР›РђР”РћРњ\n";
         std::cout << "============================================\n";
-        std::cout << "1. Создать новый основной склад\n";
-        std::cout << "2. Добавить товар на основной склад\n";
-        std::cout << "3. Вывести основной склад\n";
-        std::cout << "4. Вывести второй склад\n";
-        std::cout << "5. Удалить товар по ID\n";
-        std::cout << "6. Удалить товар по индексу\n";
-        std::cout << "7. Поиск по ID\n";
-        std::cout << "8. Поиск по категории\n";
-        std::cout << "9. Поиск по цене\n";
-        std::cout << "10. Изменить цену товара\n";
-        std::cout << "11. Изменить количество товара\n";
-        std::cout << "12. Переместить товар с основного на второй склад\n";
-        std::cout << "0. Выход\n";
+        std::cout << "1. РЎРѕР·РґР°С‚СЊ РЅРѕРІС‹Р№ РѕСЃРЅРѕРІРЅРѕР№ СЃРєР»Р°Рґ\n";
+        std::cout << "2. Р”РѕР±Р°РІРёС‚СЊ С‚РѕРІР°СЂ РЅР° РѕСЃРЅРѕРІРЅРѕР№ СЃРєР»Р°Рґ\n";
+        std::cout << "3. Р’С‹РІРµСЃС‚Рё РѕСЃРЅРѕРІРЅРѕР№ СЃРєР»Р°Рґ\n";
+        std::cout << "4. Р’С‹РІРµСЃС‚Рё РІС‚РѕСЂРѕР№ СЃРєР»Р°Рґ\n";
+        std::cout << "5. РЈРґР°Р»РёС‚СЊ С‚РѕРІР°СЂ РїРѕ ID\n";
+        std::cout << "6. РЈРґР°Р»РёС‚СЊ С‚РѕРІР°СЂ РїРѕ РёРЅРґРµРєСЃСѓ\n";
+        std::cout << "7. РџРѕРёСЃРє РїРѕ ID\n";
+        std::cout << "8. РџРѕРёСЃРє РїРѕ РєР°С‚РµРіРѕСЂРёРё\n";
+        std::cout << "9. РџРѕРёСЃРє РїРѕ С†РµРЅРµ\n";
+        std::cout << "10. РР·РјРµРЅРёС‚СЊ С†РµРЅСѓ С‚РѕРІР°СЂР°\n";
+        std::cout << "11. РР·РјРµРЅРёС‚СЊ РєРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕРІР°СЂР°\n";
+        std::cout << "12. РџРµСЂРµРјРµСЃС‚РёС‚СЊ С‚РѕРІР°СЂ СЃ РѕСЃРЅРѕРІРЅРѕРіРѕ РЅР° РІС‚РѕСЂРѕР№ СЃРєР»Р°Рґ\n";
+        std::cout << "0. Р’С‹С…РѕРґ\n";
         std::cout << "============================================\n";
 
-        choice = input_int("Выберите действие: ");
+        choice = input_int("Р’С‹Р±РµСЂРёС‚Рµ РґРµР№СЃС‚РІРёРµ: ");
 
         try {
             switch (choice) {
             case 1: {
-                int cap = input_int("Введите максимальную вместимость: ");
+                int cap = input_int("Р’РІРµРґРёС‚Рµ РјР°РєСЃРёРјР°Р»СЊРЅСѓСЋ РІРјРµСЃС‚РёРјРѕСЃС‚СЊ: ");
                 main_wh = std::make_unique<Warehouse>(cap);
-                std::cout << "Создан новый склад на " << cap << " мест.\n";
+                std::cout << "РЎРѕР·РґР°РЅ РЅРѕРІС‹Р№ СЃРєР»Р°Рґ РЅР° " << cap << " РјРµСЃС‚.\n";
                 break;
             }
             case 2: {
-                std::cout << "\n1. Смартфон\n2. Ноутбук\n3. Футболка\n4. Куртка\n5. Молоко\n6. Хлеб\n";
-                int type = input_int("Выберите тип товара: ");
+                std::cout << "\n1. РЎРјР°СЂС‚С„РѕРЅ\n2. РќРѕСѓС‚Р±СѓРє\n3. Р¤СѓС‚Р±РѕР»РєР°\n4. РљСѓСЂС‚РєР°\n5. РњРѕР»РѕРєРѕ\n6. РҐР»РµР±\n";
+                int type = input_int("Р’С‹Р±РµСЂРёС‚Рµ С‚РёРї С‚РѕРІР°СЂР°: ");
 
-                std::string name = input_string("Введите название: ");
+                std::string name = input_string("Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ: ");
                 std::string id = Product::generate_id();
-                int price = input_int("Введите цену (руб.): ");
-                int qty = input_int("Введите количество: ");
-                double weight = input_double("Введите вес (г): ");
+                int price = input_int("Р’РІРµРґРёС‚Рµ С†РµРЅСѓ (СЂСѓР±.): ");
+                int qty = input_int("Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ: ");
+                double weight = input_double("Р’РІРµРґРёС‚Рµ РІРµСЃ (Рі): ");
 
                 std::unique_ptr<Product> prod;
                 if (type == 1) prod = sf.create_product(id, name, price, qty, weight);
@@ -139,73 +139,73 @@ int main() {
                 else if (type == 3) prod = tf.create_product(id, name, price, qty, weight);
                 else if (type == 4) prod = jf.create_product(id, name, price, qty, weight);
                 else if (type == 5 || type == 6) {
-                    std::string date = input_string("Введите дату производства (ДД.ММ.ГГГГ): ");
-                    int shelf = input_int("Введите срок годности (дней): ");
+                    std::string date = input_string("Р’РІРµРґРёС‚Рµ РґР°С‚Сѓ РїСЂРѕРёР·РІРѕРґСЃС‚РІР° (Р”Р”.РњРњ.Р“Р“Р“Р“): ");
+                    int shelf = input_int("Р’РІРµРґРёС‚Рµ СЃСЂРѕРє РіРѕРґРЅРѕСЃС‚Рё (РґРЅРµР№): ");
                     if (type == 5) prod = mf.create_product(id, name, price, qty, weight, date, shelf);
                     else prod = bf.create_product(id, name, price, qty, weight, date, shelf);
                 }
                 else {
-                    std::cout << "Неверный тип.\n";
+                    std::cout << "РќРµРІРµСЂРЅС‹Р№ С‚РёРї.\n";
                     break;
                 }
 
                 main_wh->add_product(std::move(prod));
-                std::cout << "Товар добавлен. ID: " << id << "\n";
+                std::cout << "РўРѕРІР°СЂ РґРѕР±Р°РІР»РµРЅ. ID: " << id << "\n";
                 break;
             }
-            case 3: print_warehouse("Основной склад", *main_wh); break;
-            case 4: print_warehouse("Второй склад", *second_wh); break;
+            case 3: print_warehouse("РћСЃРЅРѕРІРЅРѕР№ СЃРєР»Р°Рґ", *main_wh); break;
+            case 4: print_warehouse("Р’С‚РѕСЂРѕР№ СЃРєР»Р°Рґ", *second_wh); break;
             case 5: {
                 Warehouse* wh = select_warehouse(main_wh.get(), second_wh.get());
                 if (!wh) break;
 
-                std::string id = input_string("Введите ID товара для удаления: ");
+                std::string id = input_string("Р’РІРµРґРёС‚Рµ ID С‚РѕРІР°СЂР° РґР»СЏ СѓРґР°Р»РµРЅРёСЏ: ");
                 wh->remove_by_id(id);
-                std::cout << "Товар удален.\n";
+                std::cout << "РўРѕРІР°СЂ СѓРґР°Р»РµРЅ.\n";
                 break;
             }
             case 6: {
                 Warehouse* wh = select_warehouse(main_wh.get(), second_wh.get());
                 if (!wh) break;
 
-                int idx = input_int("Введите индекс товара для удаления: ");
+                int idx = input_int("Р’РІРµРґРёС‚Рµ РёРЅРґРµРєСЃ С‚РѕРІР°СЂР° РґР»СЏ СѓРґР°Р»РµРЅРёСЏ: ");
                 wh->remove_by_index(idx);
-                std::cout << "Товар удален.\n";
+                std::cout << "РўРѕРІР°СЂ СѓРґР°Р»РµРЅ.\n";
                 break;
             }
             case 7: {
-                std::string id = input_string("Введите ID для поиска: ");
+                std::string id = input_string("Р’РІРµРґРёС‚Рµ ID РґР»СЏ РїРѕРёСЃРєР°: ");
                 Product* p1 = main_wh->find_by_id(id);
                 Product* p2 = second_wh->find_by_id(id);
 
-                if (p1) { std::cout << "[Основной склад] "; p1->print(std::cout); std::cout << "\n"; }
-                else if (p2) { std::cout << "[Второй склад] "; p2->print(std::cout); std::cout << "\n"; }
-                else std::cout << "Товар с таким ID не найден ни на одном складе.\n";
+                if (p1) { std::cout << "[РћСЃРЅРѕРІРЅРѕР№ СЃРєР»Р°Рґ] "; p1->print(std::cout); std::cout << "\n"; }
+                else if (p2) { std::cout << "[Р’С‚РѕСЂРѕР№ СЃРєР»Р°Рґ] "; p2->print(std::cout); std::cout << "\n"; }
+                else std::cout << "РўРѕРІР°СЂ СЃ С‚Р°РєРёРј ID РЅРµ РЅР°Р№РґРµРЅ РЅРё РЅР° РѕРґРЅРѕРј СЃРєР»Р°РґРµ.\n";
                 break;
             }
             case 8: {
-                std::string cat = input_string("Введите категорию (electronics, clothing, food): ");
+                std::string cat = input_string("Р’РІРµРґРёС‚Рµ РєР°С‚РµРіРѕСЂРёСЋ (electronics, clothing, food): ");
                 auto res1 = main_wh->find_by_category(cat);
                 auto res2 = second_wh->find_by_category(cat);
 
-                std::cout << "\n--- Результаты поиска ---\n";
-                std::cout << "На основном складе найдено: " << res1.size() << "\n";
+                std::cout << "\n--- Р РµР·СѓР»СЊС‚Р°С‚С‹ РїРѕРёСЃРєР° ---\n";
+                std::cout << "РќР° РѕСЃРЅРѕРІРЅРѕРј СЃРєР»Р°РґРµ РЅР°Р№РґРµРЅРѕ: " << res1.size() << "\n";
                 for (auto* p : res1) { p->print(std::cout); std::cout << "\n"; }
 
-                std::cout << "На втором складе найдено: " << res2.size() << "\n";
+                std::cout << "РќР° РІС‚РѕСЂРѕРј СЃРєР»Р°РґРµ РЅР°Р№РґРµРЅРѕ: " << res2.size() << "\n";
                 for (auto* p : res2) { p->print(std::cout); std::cout << "\n"; }
                 break;
             }
             case 9: {
-                int p_val = input_int("Введите искомую цену: ");
+                int p_val = input_int("Р’РІРµРґРёС‚Рµ РёСЃРєРѕРјСѓСЋ С†РµРЅСѓ: ");
                 auto res1 = main_wh->find_by_price(Price(p_val));
                 auto res2 = second_wh->find_by_price(Price(p_val));
 
-                std::cout << "\n--- Результаты поиска ---\n";
-                std::cout << "На основном складе найдено: " << res1.size() << "\n";
+                std::cout << "\n--- Р РµР·СѓР»СЊС‚Р°С‚С‹ РїРѕРёСЃРєР° ---\n";
+                std::cout << "РќР° РѕСЃРЅРѕРІРЅРѕРј СЃРєР»Р°РґРµ РЅР°Р№РґРµРЅРѕ: " << res1.size() << "\n";
                 for (auto* p : res1) { p->print(std::cout); std::cout << "\n"; }
 
-                std::cout << "На втором складе найдено: " << res2.size() << "\n";
+                std::cout << "РќР° РІС‚РѕСЂРѕРј СЃРєР»Р°РґРµ РЅР°Р№РґРµРЅРѕ: " << res2.size() << "\n";
                 for (auto* p : res2) { p->print(std::cout); std::cout << "\n"; }
                 break;
             }
@@ -213,47 +213,47 @@ int main() {
                 Warehouse* wh = select_warehouse(main_wh.get(), second_wh.get());
                 if (!wh) break;
 
-                std::string id = input_string("Введите ID товара: ");
+                std::string id = input_string("Р’РІРµРґРёС‚Рµ ID С‚РѕРІР°СЂР°: ");
                 Product* p = wh->find_by_id(id);
                 if (p) {
-                    int new_p = input_int("Введите новую цену: ");
+                    int new_p = input_int("Р’РІРµРґРёС‚Рµ РЅРѕРІСѓСЋ С†РµРЅСѓ: ");
                     p->set_price(Price(new_p));
-                    std::cout << "Цена обновлена.\n";
+                    std::cout << "Р¦РµРЅР° РѕР±РЅРѕРІР»РµРЅР°.\n";
                 }
-                else std::cout << "Товар не найден.\n";
+                else std::cout << "РўРѕРІР°СЂ РЅРµ РЅР°Р№РґРµРЅ.\n";
                 break;
             }
             case 11: {
                 Warehouse* wh = select_warehouse(main_wh.get(), second_wh.get());
                 if (!wh) break;
 
-                std::string id = input_string("Введите ID товара: ");
+                std::string id = input_string("Р’РІРµРґРёС‚Рµ ID С‚РѕРІР°СЂР°: ");
                 Product* p = wh->find_by_id(id);
                 if (p) {
-                    int delta = input_int("Изменение количества (например, -5): ");
+                    int delta = input_int("РР·РјРµРЅРµРЅРёРµ РєРѕР»РёС‡РµСЃС‚РІР° (РЅР°РїСЂРёРјРµСЂ, -5): ");
                     p->change_quantity(delta);
-                    std::cout << "Количество обновлено.\n";
+                    std::cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ РѕР±РЅРѕРІР»РµРЅРѕ.\n";
                 }
-                else std::cout << "Товар не найден.\n";
+                else std::cout << "РўРѕРІР°СЂ РЅРµ РЅР°Р№РґРµРЅ.\n";
                 break;
             }
             case 12: {
-                std::string id = input_string("Введите ID товара для перемещения на второй склад: ");
+                std::string id = input_string("Р’РІРµРґРёС‚Рµ ID С‚РѕРІР°СЂР° РґР»СЏ РїРµСЂРµРјРµС‰РµРЅРёСЏ РЅР° РІС‚РѕСЂРѕР№ СЃРєР»Р°Рґ: ");
                 Product* p = main_wh->find_by_id(id);
                 if (p) {
                     p->transfer_to(*second_wh); 
                     main_wh->remove_by_id(id);  
-                    std::cout << "Товар перемещен.\n";
+                    std::cout << "РўРѕРІР°СЂ РїРµСЂРµРјРµС‰РµРЅ.\n";
                 }
-                else std::cout << "Товар не найден на основном складе.\n";
+                else std::cout << "РўРѕРІР°СЂ РЅРµ РЅР°Р№РґРµРЅ РЅР° РѕСЃРЅРѕРІРЅРѕРј СЃРєР»Р°РґРµ.\n";
                 break;
             }
-            case 0: std::cout << "Выход.\n"; break;
-            default: std::cout << "Неверный пункт.\n"; break;
+            case 0: std::cout << "Р’С‹С…РѕРґ.\n"; break;
+            default: std::cout << "РќРµРІРµСЂРЅС‹Р№ РїСѓРЅРєС‚.\n"; break;
             }
         }
         catch (const std::exception& e) {
-            std::cout << "\n[ОШИБКА]: " << e.what() << "\n";
+            std::cout << "\n[РћРЁРР‘РљРђ]: " << e.what() << "\n";
         }
     } while (choice != 0);
 

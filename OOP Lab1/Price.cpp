@@ -5,7 +5,7 @@ Price::Price() : value(0) {}
 
 Price::Price(int val) : value(val) {
     if (val < 0) {
-        throw std::invalid_argument("Öåíà íå ìîæåò áûòü îòðèöàòåëüíîé");
+        throw std::invalid_argument("Ð¦ÐµÐ½Ð° Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¾Ñ‚Ñ€Ð¸Ñ†Ð°Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ð¹");
     }
 }
 
@@ -15,7 +15,7 @@ int Price::get_value() const {
 
 void Price::set_value(int new_val) {
     if (new_val < 0) {
-        throw std::invalid_argument("Öåíà íå ìîæåò áûòü îòðèöàòåëüíîé");
+        throw std::invalid_argument("Ð¦ÐµÐ½Ð° Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¾Ñ‚Ñ€Ð¸Ñ†Ð°Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ð¹");
     }
     value = new_val;
 }
