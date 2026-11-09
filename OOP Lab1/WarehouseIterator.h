@@ -1,19 +1,23 @@
 #pragma once
-#include <vector>
+#include <map>
 #include <memory>
-#include "Product.h"
+#include <utility>
+#include "Cell.h"
+#include "Zone.h"
 
 class WarehouseIterator {
 private:
-    using iter_type = std::vector<std::unique_ptr<Product>>::iterator;
-    iter_type current;
-    iter_type end;
+    using map_iter_type = std::map<std::pair<Zone, int>, std::shared_ptr<Cell>>::iterator;
+    map_iter_type current;
 
 public:
-    WarehouseIterator(iter_type curr, iter_type e) : current(curr), end(e) {}
+    explicit WarehouseIterator(map_iter_type iter) : current(iter) {}
 
-    Product& operator*() const { return **current; }
-    Product* operator->() const { return current->get(); }
+    // Разыменование возвращает ссылку на ячейку (а не на пару ключ-значение)
+    Cell& operator*() const { return *(current->second); }
+
+    // Доступ к методам ячейки через указатель
+    Cell* operator->() const { return current->second.get(); }
 
     WarehouseIterator& operator++() {
         ++current;
@@ -22,25 +26,4 @@ public:
 
     bool operator!=(const WarehouseIterator& other) const { return current != other.current; }
     bool operator==(const WarehouseIterator& other) const { return current == other.current; }
-};
-
-class ConstWarehouseIterator {
-private:
-    using iter_type = std::vector<std::unique_ptr<Product>>::const_iterator;
-    iter_type current;
-    iter_type end;
-
-public:
-    ConstWarehouseIterator(iter_type curr, iter_type e) : current(curr), end(e) {}
-
-    const Product& operator*() const { return **current; }
-    const Product* operator->() const { return current->get(); }
-
-    ConstWarehouseIterator& operator++() {
-        ++current;
-        return *this;
-    }
-
-    bool operator!=(const ConstWarehouseIterator& other) const { return current != other.current; }
-    bool operator==(const ConstWarehouseIterator& other) const { return current == other.current; }
 };
