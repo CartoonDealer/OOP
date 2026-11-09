@@ -1,100 +1,107 @@
 #include "Warehouse.h"
 #include <stdexcept>
-#include <algorithm>
 
-Warehouse::Warehouse(size_t maxSize) : max_size(maxSize) {
-    if (maxSize == 0) {
-        throw std::invalid_argument("–í–º–µ—Å—Ç–∏–º–æ—Å—Ç—å —Å–∫–ª–∞–¥–∞ –¥–æ–ª–∂–Ω–∞ –±—ã—Ç—å –±–æ–ª—å—à–µ 0");
-    }
-    products.reserve(max_size);
+Warehouse::Warehouse(const std::string& address, int initial_cells)
+    : address(address), total_cells(initial_cells) {
+    if (initial_cells <= 0) throw std::invalid_argument("¬ÏÂÒÚËÏÓÒÚ¸ ÒÍÎ‡‰‡ ‰ÓÎÊÌ‡ ·˚Ú¸ ·ÓÎ¸¯Â 0");
 }
 
-Warehouse::Warehouse(const Warehouse& other) : max_size(other.max_size) {
-    products.reserve(max_size);
-    for (const auto& p : other.products) {
-        products.push_back(p->clone());
-    }
+std::string Warehouse::get_address() const { return address; }
+int Warehouse::get_total_cells() const { return total_cells; }
+
+void Warehouse::add_cells(int count) {
+    if (count > 0) total_cells += count;
 }
 
-Warehouse& Warehouse::operator=(const Warehouse& other) {
-    if (this != &other) {
-        products.clear();
-        products.reserve(other.max_size);
-        for (const auto& p : other.products) {
-            products.push_back(p->clone());
+Cell& Warehouse::get_or_create_cell(Zone zone, int slot_number) {
+    auto key = std::make_pair(zone, slot_number);
+    auto it = cells.find(key);
+
+    if (it == cells.end()) {
+        auto new_cell = std::make_shared<Cell>(zone, slot_number);
+        cells[key] = new_cell;
+        return *new_cell;
+    }
+    return *(it->second);
+}
+
+size_t Warehouse::get_occupied_cells_count() const {
+    size_t count = 0;
+    for (const auto& pair : cells) {
+        if (pair.first.first == Zone::INTERNAL) continue;
+        if (!pair.second->is_empty()) count++;
+    }
+    return count;
+}
+
+int Warehouse::find_free_slot(Zone zone) const {
+    if (zone == Zone::INTERNAL) return 1;
+
+    for (int i = 1; i <= total_cells; ++i) {
+        auto key = std::make_pair(zone, i);
+        auto it = cells.find(key);
+        if (it == cells.end() || it->second->is_empty()) {
+            return i;
         }
-        max_size = other.max_size;
     }
-    return *this;
+    return -1;
 }
 
-Warehouse::Warehouse(Warehouse&& other) noexcept
-    : products(std::move(other.products)), max_size(other.max_size) {
-    other.max_size = 0;
-}
-
-Warehouse& Warehouse::operator=(Warehouse&& other) noexcept {
-    if (this != &other) {
-        products = std::move(other.products);
-        max_size = other.max_size;
-        other.max_size = 0;
-    }
-    return *this;
-}
-
-void Warehouse::add_product(std::unique_ptr<Product> product) {
-    if (!product) {
-        throw std::invalid_argument("–ù–µ–ª—å–∑—è –¥–æ–±–∞–≤–∏—Ç—å –ø—É—Å—Ç–æ–π —Ç–æ–≤–∞—Ä (nullptr)");
-    }
-    if (products.size() >= max_size) {
-        throw std::overflow_error("–ü—Ä–µ–≤—ã—à–µ–Ω–∞ –º–∞–∫—Å–∏–º–∞–ª—å–Ω–∞—è –≤–º–µ—Å—Ç–∏–º–æ—Å—Ç—å —Å–∫–ª–∞–¥–∞");
-    }
-    if (find_by_id(product->get_id()) != nullptr) {
-        throw std::invalid_argument("–¢–æ–≤–∞—Ä —Å —Ç–∞–∫–∏–º ID —É–∂–µ —Å—É—â–µ—Å—Ç–≤—É–µ—Ç –Ω–∞ —Å–∫–ª–∞–¥–µ");
-    }
-    products.push_back(std::move(product));
-}
-
-void Warehouse::remove_by_id(const std::string& id) {
-    auto it = std::remove_if(products.begin(), products.end(),
-        [&id](const std::unique_ptr<Product>& p) { return p->get_id() == id; });
-
-    if (it == products.end()) {
-        throw std::runtime_error("–¢–æ–≤–∞—Ä —Å —Ç–∞–∫–∏–º ID –Ω–µ –Ω–∞–π–¥–µ–Ω");
-    }
-    products.erase(it, products.end());
-}
-
-void Warehouse::remove_by_index(size_t index) {
-    if (index >= products.size()) {
-        throw std::out_of_range("–ò–Ω–¥–µ–∫—Å –≤–Ω–µ –¥–∏–∞–ø–∞–∑–æ–Ω–∞ (—Ç–æ–≤–∞—Ä–∞ —Å —Ç–∞–∫–∏–º –∏–Ω–¥–µ–∫—Å–æ–º –Ω–µ—Ç)");
-    }
-    products.erase(products.begin() + index);
-}
-
-Product* Warehouse::find_by_id(const std::string& id) {
-    for (const auto& p : products) {
-        if (p->get_id() == id) return p.get();
+Cell* Warehouse::find_cell_with_item(std::shared_ptr<OrderItem> item) {
+    for (auto& pair : cells) {
+        if (pair.second->contains_item(item)) {
+            return pair.second.get();
+        }
     }
     return nullptr;
 }
 
-std::vector<Product*> Warehouse::find_by_category(const std::string& category) {
-    std::vector<Product*> result;
-    for (const auto& p : products) {
-        if (p->get_category() == category) {
-            result.push_back(p.get());
+// ÕŒ¬€… Ã≈“Œƒ
+void Warehouse::remove_order_items(const std::string& order_id) {
+    for (auto& pair : cells) {
+        auto& cell = pair.second;
+        std::vector<std::shared_ptr<OrderItem>> to_remove;
+
+        for (auto it = cell->begin(); it != cell->end(); ++it) {
+            if ((*it)->get_order_id() == order_id) {
+                to_remove.push_back(*it);
+            }
+        }
+
+        for (auto& item : to_remove) {
+            cell->remove_item(item);
         }
     }
-    return result;
 }
 
-std::vector<Product*> Warehouse::find_by_price(const Price& price) {
-    std::vector<Product*> result;
-    for (const auto& p : products) {
-        if (p->get_price().get_value() == price.get_value()) {
-            result.push_back(p.get());
+bool Warehouse::transfer_item(Warehouse& target_wh, std::shared_ptr<OrderItem> item, Zone target_zone, int target_slot) {
+    if (!item) throw std::invalid_argument("“Ó‚‡ ÌÂ ÏÓÊÂÚ ·˚Ú¸ nullptr");
+
+    if (target_zone != Zone::INTERNAL) {
+        if (target_wh.get_occupied_cells_count() >= (size_t)target_wh.get_total_cells()) {
+            auto key = std::make_pair(target_zone, target_slot);
+            if (target_wh.cells.find(key) == target_wh.cells.end()) {
+                throw std::overflow_error("Õ‡ ˆÂÎÂ‚ÓÏ ÒÍÎ‡‰Â ÌÂÚ Ò‚Ó·Ó‰Ì˚ı ˇ˜ÂÂÍ!");
+            }
         }
     }
-    return result;
+
+    auto target_key = std::make_pair(target_zone, target_slot);
+    auto it_target = target_wh.cells.find(target_key);
+
+    if (it_target != target_wh.cells.end()) {
+        if (!it_target->second->can_accept(item)) {
+            throw std::runtime_error("÷ÂÎÂ‚‡ˇ ˇ˜ÂÈÍ‡ Á‡ÌˇÚ‡ ‰Û„ËÏ ÔÓ‰‡‚ˆÓÏ ËÎË Á‡Í‡ÁÓÏ");
+        }
+    }
+
+    Cell& target_cell = target_wh.get_or_create_cell(target_zone, target_slot);
+    target_cell.add_item(item);
+
+    Cell* source_cell = find_cell_with_item(item);
+    if (source_cell) {
+        source_cell->remove_item(item);
+    }
+
+    return true;
 }

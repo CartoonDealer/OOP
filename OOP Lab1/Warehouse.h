@@ -1,38 +1,36 @@
 #pragma once
-#include <vector>
+#include <map>
 #include <memory>
+#include <utility>
 #include <string>
-#include "Product.h"
+#include "Cell.h"
 #include "WarehouseIterator.h"
+#include "Zone.h"
 
 class Warehouse {
 private:
-    std::vector<std::unique_ptr<Product>> products;
-    size_t max_size;
+    std::map<std::pair<Zone, int>, std::shared_ptr<Cell>> cells;
+    std::string address;
+    int total_cells;
 
 public:
-    explicit Warehouse(size_t maxSize);
+    explicit Warehouse(const std::string& address = "Не указан", int initial_cells = 10);
 
-    Warehouse(const Warehouse& other);                 
-    Warehouse& operator=(const Warehouse& other);      
-    Warehouse(Warehouse&& other) noexcept;             
-    Warehouse& operator=(Warehouse&& other) noexcept;  
-    ~Warehouse() = default;                            
+    std::string get_address() const;
+    int get_total_cells() const;
+    void add_cells(int count);
 
-    void add_product(std::unique_ptr<Product> product);
-    void remove_by_id(const std::string& id);
-    void remove_by_index(size_t index);
+    Cell& get_or_create_cell(Zone zone, int slot_number);
+    size_t get_occupied_cells_count() const;
 
-    Product* find_by_id(const std::string& id);
-    std::vector<Product*> find_by_category(const std::string& category);
-    std::vector<Product*> find_by_price(const Price& price);
+    int find_free_slot(Zone zone) const;
 
-    size_t size() const { return products.size(); }
-    size_t capacity() const { return max_size; }
+    Cell* find_cell_with_item(std::shared_ptr<OrderItem> item);
+    bool transfer_item(Warehouse& target_wh, std::shared_ptr<OrderItem> item, Zone target_zone, int target_slot);
 
-    WarehouseIterator begin() { return WarehouseIterator(products.begin(), products.end()); }
-    WarehouseIterator end() { return WarehouseIterator(products.end(), products.end()); }
+    // НОВЫЙ МЕТОД: удаляет все товары конкретного заказа
+    void remove_order_items(const std::string& order_id);
 
-    ConstWarehouseIterator begin() const { return ConstWarehouseIterator(products.cbegin(), products.cend()); }
-    ConstWarehouseIterator end() const { return ConstWarehouseIterator(products.cend(), products.cend()); }
+    WarehouseIterator begin() { return WarehouseIterator(cells.begin()); }
+    WarehouseIterator end() { return WarehouseIterator(cells.end()); }
 };

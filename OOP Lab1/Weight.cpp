@@ -5,7 +5,7 @@ Weight::Weight() : value(0.0) {}
 
 Weight::Weight(double val) : value(val) {
     if (val < 0.0) {
-        throw std::invalid_argument("Ð’ÐµÑ Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¾Ñ‚Ñ€Ð¸Ñ†Ð°Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¼");
+        throw std::invalid_argument("Âåñ íå ìîæåò áûòü îòðèöàòåëüíûì");
     }
 }
 
@@ -15,7 +15,7 @@ double Weight::get_value() const {
 
 void Weight::set_value(double new_val) {
     if (new_val < 0.0) {
-        throw std::invalid_argument("Ð’ÐµÑ Ð½Ðµ Ð¼Ð¾Ð¶ÐµÑ‚ Ð±Ñ‹Ñ‚ÑŒ Ð¾Ñ‚Ñ€Ð¸Ñ†Ð°Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¼");
+        throw std::invalid_argument("Âåñ íå ìîæåò áûòü îòðèöàòåëüíûì");
     }
     value = new_val;
 }
